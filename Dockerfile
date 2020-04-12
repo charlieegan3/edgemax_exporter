@@ -9,7 +9,8 @@ COPY . /app
 ARG go_arch
 RUN GOARCH=${go_arch} go build ./cmd/edgemax_exporter
 
-FROM alpine:3.8
+# arm v7 3.11
+FROM alpine@sha256:c5ea49127cd44d0f50eafda229a056bb83b6e691883c56fd863d42675fae3909
 
 COPY --from=build /app/edgemax_exporter /usr/local/bin/edgemax_exporter
 COPY entrypoint.sh /entrypoint.sh
