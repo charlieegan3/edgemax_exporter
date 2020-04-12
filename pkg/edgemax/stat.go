@@ -102,26 +102,26 @@ type Interface struct {
 	Up              bool
 	Autonegotiation bool
 	Duplex          string
-	Speed           int
+	Speed           uint64
 	MAC             net.HardwareAddr
-	MTU             int
+	MTU             uint64
 	Addresses       []net.IP
 	Stats           InterfaceStats
 }
 
 // InterfaceStats contains network interface data transmission statistics.
 type InterfaceStats struct {
-	ReceivePackets  int
-	TransmitPackets int
-	ReceiveBytes    int
-	TransmitBytes   int
-	ReceiveErrors   int
-	TransmitErrors  int
-	ReceiveDropped  int
-	TransmitDropped int
-	Multicast       int
-	ReceiveBPS      int
-	TransmitBPS     int
+	ReceivePackets  uint64
+	TransmitPackets uint64
+	ReceiveBytes    uint64
+	TransmitBytes   uint64
+	ReceiveErrors   uint64
+	TransmitErrors  uint64
+	ReceiveDropped  uint64
+	TransmitDropped uint64
+	Multicast       uint64
+	ReceiveBPS      uint64
+	TransmitBPS     uint64
 }
 
 // UnmarshalJSON unmarshals JSON into an Interfaces.
@@ -171,14 +171,14 @@ func (i *Interfaces) UnmarshalJSON(b []byte) error {
 			vv.Stats.TXBPS,
 		}
 
-		ints := make([]int, 0, len(ss))
+		ints := make([]uint64, 0, len(ss))
 		for _, str := range ss {
 			if str == "" {
 				ints = append(ints, 0)
 				continue
 			}
 
-			v, err := strconv.Atoi(str)
+			v, err := strconv.ParseUint(str, 10, 64)
 			if err != nil {
 				return err
 			}
@@ -264,10 +264,10 @@ type DPIStat struct {
 	IP            net.IP
 	Type          string
 	Category      string
-	ReceiveBytes  int
-	ReceiveRate   int
-	TransmitBytes int
-	TransmitRate  int
+	ReceiveBytes  uint64
+	ReceiveRate   uint64
+	TransmitBytes uint64
+	TransmitRate  uint64
 }
 
 // StatType implements the Stats interface.
@@ -301,22 +301,22 @@ func (d *DPIStats) UnmarshalJSON(b []byte) error {
 				return fmt.Errorf("invalid stat type: %q", statType)
 			}
 
-			rxBytes, err := strconv.Atoi(stats.RXBytes)
+			rxBytes, err := strconv.ParseUint(stats.RXBytes, 10, 64)
 			if err != nil {
 				return err
 			}
 
-			rxRate, err := strconv.Atoi(stats.RXRate)
+			rxRate, err := strconv.ParseUint(stats.RXRate, 10, 64)
 			if err != nil {
 				return err
 			}
 
-			txBytes, err := strconv.Atoi(stats.TXBytes)
+			txBytes, err := strconv.ParseUint(stats.TXBytes, 10, 64)
 			if err != nil {
 				return err
 			}
 
-			txRate, err := strconv.Atoi(stats.TXRate)
+			txRate, err := strconv.ParseUint(stats.TXRate, 10, 64)
 			if err != nil {
 				return err
 			}

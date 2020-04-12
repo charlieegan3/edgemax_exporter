@@ -1,9 +1,9 @@
-package edgemaxexporter
+package exporter
 
 import (
 	"time"
 
-	"github.com/charlieegan3/edgemax_exporter/edgemax"
+	"github.com/charlieegan3/edgemax_exporter/pkg/edgemax"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

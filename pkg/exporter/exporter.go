@@ -1,11 +1,11 @@
-// Package edgemaxexporter provides the Exporter type used in the edgemax_exporter
+// Package exporter provides the Exporter type used in the edgemax_exporter
 // Prometheus exporter.
-package edgemaxexporter
+package exporter
 
 import (
 	"sync"
 
-	"github.com/charlieegan3/edgemax_exporter/edgemax"
+	"github.com/charlieegan3/edgemax_exporter/pkg/edgemax"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

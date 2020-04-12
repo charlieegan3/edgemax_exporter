@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
-	edgemaxexporter "github.com/charlieegan3/edgemax_exporter"
-	"github.com/charlieegan3/edgemax_exporter/edgemax"
+	"github.com/charlieegan3/edgemax_exporter/pkg/edgemax"
+	"github.com/charlieegan3/edgemax_exporter/pkg/exporter"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -59,7 +59,7 @@ func main() {
 		log.Fatalf("failed to authenticate to EdgeMAX Controller: %v", err)
 	}
 
-	e, done, err := edgemaxexporter.New(c)
+	e, done, err := exporter.New(c)
 	if err != nil {
 		log.Fatalf("failed to create EdgeMAX exporter: %v", err)
 	}

@@ -3,6 +3,7 @@ package edgemax
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"sync"
 	"time"
@@ -227,6 +228,7 @@ func collectStats(
 			case StatTypeDPIStats:
 				var ds DPIStats
 				if err := ds.UnmarshalJSON(v); err != nil {
+					log.Printf("DPI data parse error: %s", err)
 					break
 				}
 
@@ -234,6 +236,7 @@ func collectStats(
 			case StatTypeInterfaces:
 				var is Interfaces
 				if err := is.UnmarshalJSON(v); err != nil {
+					log.Printf("Interface data parse error: %s", err)
 					break
 				}
 
@@ -241,6 +244,7 @@ func collectStats(
 			case StatTypeSystemStats:
 				ss := new(SystemStats)
 				if err := ss.UnmarshalJSON(v); err != nil {
+					log.Printf("System data parse error: %s", err)
 					break
 				}
 
