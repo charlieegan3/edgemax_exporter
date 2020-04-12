@@ -8,9 +8,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mdlayher/edgemax"
-	"github.com/mdlayher/edgemax_exporter"
+	edgemaxexporter "github.com/charlieegan3/edgemax_exporter"
+	"github.com/charlieegan3/edgemax_exporter/edgemax"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 const (
@@ -66,7 +67,7 @@ func main() {
 
 	prometheus.MustRegister(e)
 
-	http.Handle(*metricsPath, prometheus.Handler())
+	http.Handle(*metricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, *metricsPath, http.StatusMovedPermanently)
 	})

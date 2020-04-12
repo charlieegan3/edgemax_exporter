@@ -1,7 +1,7 @@
 package edgemaxexporter
 
 import (
-	"github.com/mdlayher/edgemax"
+	"github.com/charlieegan3/edgemax_exporter/edgemax"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
