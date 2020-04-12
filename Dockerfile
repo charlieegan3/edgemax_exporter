@@ -6,10 +6,12 @@ WORKDIR /app
 
 COPY . /app
 
-RUN go build ./cmd/edgemax_exporter
+ARG go_arch
+RUN GOARCH=${go_arch} go build ./cmd/edgemax_exporter
 
 FROM alpine:3.8
 
 COPY --from=build /app/edgemax_exporter /usr/local/bin/edgemax_exporter
+COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/edgemax_exporter"]
+ENTRYPOINT ["/entrypoint.sh"]

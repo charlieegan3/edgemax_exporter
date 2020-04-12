@@ -1,0 +1,23 @@
+kind: pipeline
+type: docker
+name: exporter-arm
+
+# this should work but doesn't - it seems to create invalid images
+# using the go cross compilation instead
+# platform:
+#   arch: arm
+
+steps:
+- name: set-tags
+  image: busybox
+  commands:
+  - echo -n "arm-$DRONE_COMMIT" > .tags
+- name: deploy
+  image: plugins/docker
+  settings:
+    repo: charlieegan3/edgemax_exporter
+    username: charlieegan3
+    password:
+      from_secret: DOCKER_PASSWORD
+    build_args:
+    - go_arch=arm
